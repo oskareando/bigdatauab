@@ -1,0 +1,30 @@
+public = ""
+secret = ""
+
+from twitchAPI.twitch import Twitch
+import json
+
+twitch = Twitch(public, secret)
+def get_str(next)
+    resposta = twitch.get_streams(first=next)
+    print(len(resposta["data"]))
+    try:
+        next = resposta["pagination"]["cursor"]
+        get_str(next)
+    except:
+        pass
+
+    print(next)
+
+    with open("streams.json", 'w', encoding='utf-8') as f:
+        json.dump(results, f, ensure_ascii=False, indent=4)
+
+get_str(next)
+
+"""def get_live_streams():
+    results = twitch.get_streams(language="es", after=)
+    print(results)
+    with open("streams.json", 'w', encoding='utf-8') as f:
+        json.dump(results, f, ensure_ascii=False, indent=4)
+
+get_live_streams()"""

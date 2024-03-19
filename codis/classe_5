@@ -1,1 +1,149 @@
+import pandas as pd
 
+# Dades proporcionades
+notes = [1, 6, 8, 9, 10, 6, 5]
+alumnes = ["Jaume", "Carles", "Cristina", "Josep", "Rafael", "Agnès", "Marta"]
+cognoms = ["Tort", "Soldevila", "Luna", "Muñoz", "Fernandez", "Hernandez", "Llopart"]
+
+def ajustar_notes(notes):
+    notes_ajustades = []
+    for nota in notes:
+        if nota < 9:
+            nota_ajustada = nota + 1
+        else:
+            nota_ajustada = 10
+        notes_ajustades.append(nota_ajustada)
+    return notes_ajustades
+
+def calcular_mediana(notes):
+    sorted_notes = sorted(notes)
+    n = len(sorted_notes)
+    if n % 2 == 0:
+        return (sorted_notes[n//2 - 1] + sorted_notes[n//2]) / 2
+    else:
+        return sorted_notes[n//2]
+
+def obtenir_text_nota(nota):
+    if nota < 5:
+        return "Suspès"
+    elif 5 <= nota <= 6:
+        return "Aprovat"
+    elif 6 < nota < 7:
+        return "Bé"
+    elif nota >= 7 and nota < 9:
+        return "Notable"
+    elif nota >= 9 and nota < 10:
+        return "Excel·lent"
+    else:
+        return "Matrícula d'honor"
+
+def calcular_diferencies_respecte_a_la_mediana(notes, mediana):
+    diferencies = [nota - mediana for nota in notes]
+    percentatge_diferencies = [(nota - mediana) / mediana * 100 for nota in notes]
+    return diferencies, percentatge_diferencies
+
+# Ajustar les notes
+notes_ajustades = ajustar_notes(notes)
+
+# Calcular la mediana
+mediana = calcular_mediana(notes_ajustades)
+
+# Calcular les diferències respecte a la mediana
+diferencies, percentatge_diferencies = calcular_diferencies_respecte_a_la_mediana(notes_ajustades, mediana)
+
+# Crear DataFrame
+dades = {
+    "Nom i cognoms": [f"{alumne} {cognom}" for alumne, cognom in zip(alumnes, cognoms)],
+    "Nota": notes_ajustades,
+    "Nota en text": [obtenir_text_nota(nota) for nota in notes_ajustades],
+    "Diferència de nota respecte a la mediana": diferencies,
+    "Diferència de nota (percentatge) respecte a la mediana": percentatge_diferencies
+}
+
+df = pd.DataFrame(dades)
+
+# Guardar en un fitxer CSV
+df.to_csv("notes.csv", index=False)
+
+print("Fitxer CSV generat correctament.")
+
+----------------------------------------------------------------------------------------------------
+
+notes_arreglades = []
+    for nota in notes:
+        if nota < 9:
+            nota_ajustada = nota + 1
+        else:
+            nota_ajustada = 10
+        notes_arreglades.append(nota_ajustada)
+    return notes_arreglades
+notes_textuals=[]
+
+dades = {}
+for nom, cognom in zip (alumnes, cognoms):
+    nom_complet = nom=" "+ cognom
+    print(nom_complet)
+
+for n in notes_arreglades:
+    elif n = 10:
+        valor = "matricula de honor"
+        notes_textuals.append(valor)
+    elif n < 5:
+        valor = "suspendido"
+        notes_textuals.append(valor)
+    elif n >= 5 and n <= 6:
+        valor = "aprobado"
+        notes_textuals.append(valor)
+    elif n > 6 and n < 7:
+        valor = "bien"
+        notes_textuals.append(valor)
+    elif n >= 7 and n < 9:
+        valor = "aprobado"
+        notes_textuals.append(valor)
+    else-
+        valor = "excelente"
+        notes_textuals.append(valor)
+
+dades = []
+
+for n, nom, q in zip (notes_arreglades, nom_complets, notes_textuals)
+    dades ["nom", "alumne"]= nom
+    dades ["nota"]= nota
+    dades["qualificacio"]= q
+    llista_final.apptend(dades)
+
+df = pd.DataFrame(llista_final)
+print(df)
+df.to.csv("dades.csv")
+
+----------------------------------------------------------------------------------------------------
+
+import pandas as pd
+
+# Leer el archivo Excel
+df = pd.read_excel("KEXP.xlsx")
+
+# Calcular el promedio de espectadores, comentarios y likes del canal
+promedio_espectadores = df["viewCount"].mean()
+promedio_comentarios = df["commentCount"].mean()
+promedio_likes = df["likeCount"].mean()
+
+df["desviacion_abs_espectadores"] = df["viewCount"] - promedio_espectadores
+df["desviacion_abs_comentarios"] = df["commentCount"] - promedio_comentarios
+df["desviacion_abs_likes"] = df["likeCount"] - promedio_likes
+
+df["desviacion_pct_espectadores"] = (df["desviacion_abs_espectadores"] / promedio_espectadores) * 100
+df["desviacion_pct_comentarios"] = (df["desviacion_abs_comentarios"] / promedio_comentarios) * 100
+df["desviacion_pct_likes"] = (df["desviacion_abs_likes"] / promedio_likes) * 100
+
+df = df.drop(["channelId", "categoryId", "channelTitle", "tags", "publishedAt", "blocked_at"], axis=1)
+
+# Imprimir el DataFrame
+print(df)
+print(df.columns)
+# Guardar el DataFrame en un nuevo archivo Excel
+df.to_excel("nom_dataset.xlsx", index=False)
+
+index = df["viewCount"].idmax()
+print(index)
+print(df.flex[index])
